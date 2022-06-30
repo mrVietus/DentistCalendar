@@ -1,0 +1,259 @@
+﻿@model DentistCalendar.Web.Models.EmployeeManagment.EmployeeManagmentModel
+<link href="~/css/employeeManagment.css" rel="stylesheet" />
+
+<div id="dcModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="dcModalContent"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="card ">
+        <div class="card-header ">
+            <h4 class="card-title">
+                Zarządzanie pracownikami
+            </h4>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-lg-2 col-md-4">
+                    <ul class="nav nav-pills nav-pills-rose nav-pills-icons flex-column" role="tablist">
+                        @{bool IsFirstNavItem = true; }
+                        @foreach (var dentistOffice in Model.DentistOffices)
+                        {
+                            if (IsFirstNavItem)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#@dentistOffice.Id" role="tablist">
+                                        <i class="material-icons">home</i> @dentistOffice.Name
+                                    </a>
+                                </li>
+                                IsFirstNavItem = false;
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#@dentistOffice.Id" role="tablist">
+                                        <i class="material-icons">home</i> @dentistOffice.Name
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-10 col-md-8">
+                    <div class="tab-content">
+                        @{bool IsFirst = true; }
+                        @foreach (var dentistOffice in Model.DentistOffices)
+                        {
+                            if (IsFirst)
+                            {
+                                <div class="tab-pane active" id="@dentistOffice.Id">
+                                    <div class="employeeTables">
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="card">
+                                                <div class="tableTittleWithAddButton">
+                                                    <div class="col-11 card-header card-header-text card-header-warning">
+                                                        <div class="card-text">
+                                                            <h4 class="card-title">Dentyści</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 addButton">
+                                                        <button class="btn btn-success btn-round btn-fab pull-right" onclick="dc.onAddDentistClick(@dentistOffice.Id)">
+                                                            <i class="material-icons content-center">add</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead class="text-warning">
+                                                        <th>Imie</th>
+                                                        <th>Nazwisko</th>
+                                                        <th>Email</th>
+                                                        <th>Telefon</th>
+                                                        <th class="text-right">Usuń</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var dentist in dentistOffice.Dentists)
+                                                            {
+                                                                <tr>
+                                                                    <td>@dentist.Name</td>
+                                                                    <td>@dentist.LastName</td>
+                                                                    <td>@dentist.Email</td>
+                                                                    <td>@dentist.MobilePhone</td>
+                                                                    <td class="td-actions pull-right">
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="@dentist.Id" onclick="dc.onRemoveDentistClick(this, '@dentist.Name @dentist.LastName', @dentistOffice.Id)">
+                                                                            <i class="material-icons">delete_forever</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="card">
+                                                <div class="tableTittleWithAddButton">
+                                                    <div class="col-11 card-header card-header-text card-header-warning">
+                                                        <div class="card-text">
+                                                            <h4 class="card-title">Pracownicy recepcji</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 addButton">
+                                                        <button class="btn btn-success btn-round btn-fab pull-right" onclick="dc.onAddRecepcionistClick(@dentistOffice.Id)">
+                                                            <i class="material-icons content-center">add</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead class="text-warning">
+                                                        <th>Imie</th>
+                                                        <th>Nazwisko</th>
+                                                        <th>Email</th>
+                                                        <th>Telefon</th>
+                                                        <th class="text-right">Usuń</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var receptionist in dentistOffice.Receptionists)
+                                                            {
+                                                                <tr>
+                                                                    <td>@receptionist.Name</td>
+                                                                    <td>@receptionist.LastName</td>
+                                                                    <td>@receptionist.Email</td>
+                                                                    <td>@receptionist.MobilePhone</td>
+                                                                    <td class="td-actions pull-right">
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="@receptionist.Id" onclick="dc.onRemoveRecepcionistClick(this, '@receptionist.Name @receptionist.LastName')">
+                                                                            <i class="material-icons">delete_forever</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                IsFirst = false;
+                            }
+                            else
+                            {
+                                <div class="tab-pane" id="@dentistOffice.Id">
+                                    <div class="employeeTables">
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="card">
+                                                <div class="tableTittleWithAddButton">
+                                                    <div class="col-11 card-header card-header-text card-header-warning">
+                                                        <div class="card-text">
+                                                            <h4 class="card-title">Dentyści</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 addButton">
+                                                        <button class="btn btn-success btn-round btn-fab pull-right" onclick="dc.onAddDentistClick(@dentistOffice.Id)">
+                                                            <i class="material-icons content-center">add</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead class="text-warning">
+                                                        <th>Imie</th>
+                                                        <th>Nazwisko</th>
+                                                        <th>Email</th>
+                                                        <th>Telefon</th>
+                                                        <th class="text-right">Usuń</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var dentist in dentistOffice.Dentists)
+                                                            {
+                                                                <tr>
+                                                                    <td>@dentist.Name</td>
+                                                                    <td>@dentist.LastName</td>
+                                                                    <td>@dentist.Email</td>
+                                                                    <td>@dentist.MobilePhone</td>
+                                                                    <td class="td-actions pull-right">
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="@dentist.Id" onclick="dc.onRemoveDentistClick(this, '@dentist.Name @dentist.LastName', @dentistOffice.Id)">
+                                                                            <i class="material-icons">delete_forever</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="card">
+                                                <div class="tableTittleWithAddButton">
+                                                    <div class="col-11 card-header card-header-text card-header-warning">
+                                                        <div class="card-text">
+                                                            <h4 class="card-title">Pracownicy recepcji</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 addButton">
+                                                        <button class="btn btn-success btn-round btn-fab pull-right" onclick="dc.onAddRecepcionistClick(@dentistOffice.Id)">
+                                                            <i class="material-icons content-center">add</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead class="text-warning">
+                                                        <th>Imie</th>
+                                                        <th>Nazwisko</th>
+                                                        <th>Email</th>
+                                                        <th>Telefon</th>
+                                                        <th class="text-right">Usuń</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var receptionist in dentistOffice.Receptionists)
+                                                            {
+                                                                <tr>
+                                                                    <td>@receptionist.Name</td>
+                                                                    <td>@receptionist.LastName</td>
+                                                                    <td>@receptionist.Email</td>
+                                                                    <td>@receptionist.MobilePhone</td>
+                                                                    <td class="td-actions pull-right">
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="@receptionist.Id" onclick="dc.onRemoveRecepcionistClick(this, '@receptionist.Name @receptionist.LastName')">
+                                                                            <i class="material-icons">delete_forever</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="card ">
+        <div class="card-body ">
+            <div class="row">
+                @await Component.InvokeAsync("Invitations")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/js/EmployeeManagment.js"></script>
+}

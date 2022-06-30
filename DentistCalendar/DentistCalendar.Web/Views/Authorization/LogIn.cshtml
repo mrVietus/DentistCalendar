@@ -1,0 +1,76 @@
+﻿@*@inject Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider schemeProvider*@
+
+@model DentistCalendar.Web.Models.Authorization.LogInModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div asp-validation-summary="All" class="col-xl-12 alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<link rel="stylesheet" href="~/css/login.css" />
+
+<div class="login-page">
+    <div class="container">
+        <div class="row" style="display: flex; align-items: center; justify-content: center;">
+            <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+                <form class="form" method="post">
+                    <div class="card card-login card-hidden">
+                        <div class="card-header card-header-pills dc-card-header text-center">
+                            <h4 class="card-title">Login</h4>
+                        </div>
+                        <div class="card-body">
+                            <span class="bmd-form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">email</i>
+                                        </span>
+                                    </div>
+                                    <input type="email" asp-for="Email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus />
+                                </div>
+                            </span>
+                            <span class="bmd-form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">lock_outline</i>
+                                        </span>
+                                    </div>
+                                    <input type="password" asp-for="Password" id="inputPassword" class="form-control" placeholder="Hasło" required />
+                                </div>
+                            </span>
+                        </div>
+                        <div class="card-footer justify-content-center">
+                            <button class="btn btn-gradient btn-round btn-lg" type="submit">Zaloguj się!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".footer").remove();
+        md.checkFullPageBackgroundImage();
+        setTimeout(function () {
+            // after 1000 ms we add the class animated to the login/register card
+            $('.card').removeClass('card-hidden');
+        }, 700);
+    });
+</script>
+
+@*<div class="external-providers">
+        @foreach (var scheme in await schemeProvider.GetRequestHandlerSchemesAsync())
+        {
+            <a asp-action="LogInExternal" asp-route-id="@scheme.Name" class="btn btn-lg btn-default">@scheme.DisplayName</a>
+        }
+    </div>*@

@@ -1,0 +1,107 @@
+﻿@model DentistCalendar.Web.Models.Profile.PatientProfileModel
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div asp-validation-summary="All" class="col-xl-12 alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (Model.WasSuccesfulyUpdated)
+{
+    <div class="col-xl-12 alert alert-success alert-dismissible fade show dc-succesfully-updated">
+        <p>Dane twojego profilu zostały zaktualizowane.</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="container-fluid" style="padding-bottom:100px">
+    <div class="row">
+        <div class="col-xl-6 col-md-8 col-sm-12 ml-auto mr-auto">
+            <div class="card">
+                <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-icon">
+                        <i class="material-icons">perm_identity</i>
+                    </div>
+                    <h4 class="card-title">
+                        Twój profil -
+                        <small class="category">Oto Twoje dane jeśli chcesz coś zmienić śmiało edytuj.</small>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditPatientsProfile" class="form" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12">
+                                <h4 class="title" style="margin-left:55px;">Avatar</h4>
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail img-circle">
+                                        @if (string.IsNullOrEmpty(Model.ProfileImageUrl))
+                                        {
+                                            <img src="../../assets/img/placeholder.jpg" alt="...">
+                                        }
+                                        else
+                                        {
+                                            <img src="../../assets/img/placeholder.jpg" alt="...">
+                                            @*<img src="@Model.ProfileImageUrl" alt="..."> odśwież jak będzie obsługa BLOB*@
+                                            <input asp-for="ProfileImageUrl" type="text" class="form-control" hidden readonly="readonly">
+                                        }
+
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+                                    <div>
+                                        <span class="btn btn-round btn-rose btn-file">
+                                            <span class="fileinput-new">Dodaj Zdjęcie</span>
+                                            <span class="fileinput-exists">Zamień</span>
+                                            <input asp-for="AvatarImageName" type="file" class="form-control" />
+                                        </span>
+                                        <br />
+                                        <a href="#remove" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Usuń</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-sm-12" style="padding-top:20px;">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Imię</label>
+                                            <input asp-for="Name" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Nazwisko</label>
+                                            <input asp-for="LastName" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Numer telefonu</label>
+                                            <input asp-for="MobilePhone" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-rose pull-right">Edytuj</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            // after 1000 ms we add the class animated to the login/register card
+            $(".dc-succesfully-updated").remove();
+        }, 5200);
+    });
+</script>

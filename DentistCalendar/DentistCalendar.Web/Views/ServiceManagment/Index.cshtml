@@ -1,0 +1,207 @@
+﻿@model DentistCalendar.Web.Models.ServiceManagment.ServiceManagmentModel
+<link href="~/css/serviceManagment.css" rel="stylesheet" />
+
+<div id="dcModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="dcModalContent"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="card ">
+        <div class="card-header ">
+            <h4 class="card-title">
+                Zarządzanie usługami
+            </h4>
+        </div>
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-lg-2 col-md-4">
+                    <ul class="nav nav-pills nav-pills-rose nav-pills-icons flex-column" role="tablist">
+                        @{bool IsFirstNavItem = true; }
+                        @foreach (var dentistOffice in Model.DentistOffices)
+                        {
+                            if (IsFirstNavItem)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#@dentistOffice.Id" role="tablist">
+                                        <i class="material-icons">home</i> @dentistOffice.Name
+                                    </a>
+                                </li>
+                                IsFirstNavItem = false;
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#@dentistOffice.Id" role="tablist">
+                                        <i class="material-icons">home</i> @dentistOffice.Name
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-10 col-md-8">
+                    <div class="tab-content">
+                        @{bool IsFirst = true; }
+                        @foreach (var dentistOffice in Model.DentistOffices)
+                        {
+                            if (IsFirst)
+                            {
+                                <div class="tab-pane active" id="@dentistOffice.Id">
+                                    <div class="serviceTable">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="tableTittleWithAddButton">
+                                                    <div class="col-11 card-header card-header-text card-header-warning">
+                                                        <div class="card-text">
+                                                            <h4 class="card-title">Usługi</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 addButton">
+                                                        <button class="btn btn-success btn-round btn-fab pull-right" onclick="dc.onAddServiceClick(@dentistOffice.Id)">
+                                                            <i class="material-icons content-center">add</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead class="text-warning">
+                                                        <th>Nazwa usługi</th>
+                                                        <th>Cena (w zł)</th>
+                                                        <th>Przybliżony czas trwania</th>
+                                                        <th>Przypisani dentyści</th>
+                                                        <th class="text-right">Edytuj/Usuń</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var service in dentistOffice.Services)
+                                                            {
+                                                                <tr>
+                                                                    <td>@service.Name</td>
+                                                                    <td>@service.Price zł</td>
+                                                                    <td>@service.Time</td>
+                                                                    <td>
+                                                                        @if (service.Dentists.Any())
+                                                                        {
+                                                                            @if (service.Dentists.Count() > 1)
+                                                                            {
+                                                                                @foreach (var dentist in service.Dentists)
+                                                                                {
+                                                                                    <p>@dentist.DoctorTitle @dentist.Name @dentist.LastName,</p>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <p>@service.Dentists.First().DoctorTitle @service.Dentists.First().Name @service.Dentists.First().LastName</p>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <p>Brak przypisanych dentystów</p>
+                                                                        }
+                                                                    </td>
+                                                                    <td class="td-actions pull-right">
+                                                                        <button type="button" rel="tooltip" class="btn btn-success" data-id="@service.Id" onclick="dc.onEditServiceClick(this, '@dentistOffice.Id')">
+                                                                            <i class="material-icons">edit</i>
+                                                                        </button>
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="@service.Id" onclick="dc.onRemoveServiceClick(this, '@service.Name', @dentistOffice.Id)">
+                                                                            <i class="material-icons">delete_forever</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                IsFirst = false;
+                            }
+                            else
+                            {
+                                <div class="tab-pane" id="@dentistOffice.Id">
+                                    <div class="serviceTable">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="tableTittleWithAddButton">
+                                                    <div class="col-11 card-header card-header-text card-header-warning">
+                                                        <div class="card-text">
+                                                            <h4 class="card-title">Usługi</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 addButton">
+                                                        <button class="btn btn-success btn-round btn-fab pull-right" onclick="dc.onAddServiceClick(@dentistOffice.Id)">
+                                                            <i class="material-icons content-center">add</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead class="text-warning">
+                                                        <th>Nazwa usługi</th>
+                                                        <th>Cena (w zł)</th>
+                                                        <th>Przybliżony czas trwania</th>
+                                                        <th>Przypisani dentyści</th>
+                                                        <th class="text-right">Edytuj/Usuń</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var service in dentistOffice.Services)
+                                                            {
+                                                                <tr>
+                                                                    <td>@service.Name</td>
+                                                                    <td>@service.Price zł</td>
+                                                                    <td>@service.Time</td>
+                                                                    <td>
+                                                                        @if (service.Dentists.Any())
+                                                                        {
+                                                                            @if (service.Dentists.Count() > 1)
+                                                                            {
+                                                                                @foreach (var dentist in service.Dentists)
+                                                                                {
+                                                                                    <p>@dentist.DoctorTitle @dentist.Name @dentist.LastName,</p>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <p>@service.Dentists.First().DoctorTitle @service.Dentists.First().Name @service.Dentists.First().LastName</p>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <p>Brak przypisanych dentystów</p>
+                                                                        }
+                                                                    </td>
+                                                                    <td class="td-actions pull-right">
+                                                                        <button type="button" rel="tooltip" class="btn btn-success" data-id="@service.Id" onclick="dc.onEditServiceClick(this, '@dentistOffice.Id')">
+                                                                            <i class="material-icons">edit</i>
+                                                                        </button>
+                                                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="@service.Id" onclick="dc.onRemoveServiceClick(this, '@service.Name', @dentistOffice.Id)">
+                                                                            <i class="material-icons">delete_forever</i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/js/ServiceManagment.js"></script>
+}

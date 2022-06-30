@@ -1,0 +1,40 @@
+﻿@media (max-width: 991.98px) {
+    #dentistOfficeManagmentTable {
+        margin-bottom: 50px;
+    }
+
+    #dcModal {
+        margin-bottom: 50px;
+    }
+
+    .addButton {
+        right: 20px;
+        z-index: 999;
+    }
+}
+
+@media (min-width: 992px) {
+    .addButton {
+        right: 30px;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+
+    #dentistOfficeManagmentTable {
+        margin: 10px 20px 10px 20px;
+    }
+}
+
+
+.modal-row {
+    margin-top: 5px;
+}
+
+.tableTittleWithAddButton {
+    display: inline-flex;
+    width: inherit;
+}
+
+.form {
+    margin-bottom: 5px;
+}

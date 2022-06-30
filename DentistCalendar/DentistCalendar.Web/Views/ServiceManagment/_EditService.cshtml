@@ -1,0 +1,54 @@
+﻿@model DentistCalendar.Web.Models.ServiceManagment.AddEditServiceModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title" id="myModalLabel">Edycja usługi.</h4>
+</div>
+
+<div id="validation">
+    <div id="validationSummary" class="col-xl-12 alert alert-danger alert-dismissible fade show" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <ul id="validation-summary-errors"></ul>
+    </div>
+</div>
+
+<div class="modal-body">
+    <form asp-action="EditService" class="form" method="post">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="padding-top:20px;">
+                <div class="row modal-row">
+                    <div class="col-md-8">
+                        <input asp-for="@Model.Service.Id" type="text" class="form-control" hidden>
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Nazwa</label>
+                            <input asp-for="@Model.Service.Name" class="form-control">
+                        </div>
+                        <div class="form-group" style="padding-bottom:50px;">
+                            <select asp-for="@Model.Service.Time" asp-items="@Model.AvaliableServiceTime" class="form-control" data-style="select-with-transition" title="Czas trwania usługi">
+                                <option disabled selected>Czas trwania usługi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Cena w zł</label>
+                            <input asp-for="@Model.Service.Price" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <select asp-for="@Model.AssignedDentistListIds" asp-items="@Model.AvaliableDentists" class="selectpicker dcDropdownWithMultichoiseOnModal" data-style="select-with-transition" title="Przypisani dentyści" multiple>
+                                <option disabled>Przypisani dentyści</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Opis</label>
+                            <textarea asp-for="@Model.Service.Description" class="form-control" rows="5"></textarea>
+                        </div>
+                        <input asp-for="@Model.DentistOfficeId" type="text" class="form-control" hidden readonly="readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-rose pull-right" onclick="SubmitForm(this.parentElement, event)">Edytuj usługę</button>
+        <div class="clearfix"></div>
+    </form>
+</div>

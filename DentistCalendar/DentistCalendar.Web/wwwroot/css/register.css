@@ -1,0 +1,63 @@
+﻿.dc-register-sheet {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    background-image: url('../../assets/img/background/367852-PAXS20-754.jpg');
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: -o-calc(100% - 118px); /* opera */
+    height: -webkit-calc(100% - 118px); /* google, safari */
+    height: -moz-calc(100% - 118px); /* firefox */
+    /*height: -moz-available; /* WebKit-based browsers will ignore this. */
+    /*height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+    /*height: fill-available;*/
+}
+
+.registration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width:992px) {
+    .left {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-dc-container {
+        position: unset !important;
+        padding-top: 70px !important;
+        margin: 0px 0px 0px 0px !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .main-dc-container {
+        position: unset !important;
+        padding-top: 70px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .main-dc-container {
+        position: unset !important;
+        padding-top: 70px !important;
+        left: 0px !important;
+        right: 0px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .main-dc-container {
+        padding-top: 70px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-dc-container {
+        padding-top: 70px !important;
+    }
+}

@@ -1,0 +1,130 @@
+﻿@model DentistCalendar.Web.Models.Appointment.ScheduleAppointmentModel
+<link href="~/css/wizard.css" rel="stylesheet" />
+<p>Umów się na wizytę</p>
+
+<div class="wizard-container">
+    <div class="card card-wizard" data-color="rose" id="wizardProfile">
+        <form action="" method="">
+            <div class="card-header text-center">
+                <h3 class="card-title">
+                    Umów się na wizytę dentystyczną
+                </h3>
+                <h5 class="card-description">Proszę wybrać miasto, placówkę, dentystę oraz odpowiadającą dostępną godzinę.</h5>
+            </div>
+            <div class="wizard-navigation">
+                <ul class="nav nav-pills">
+                    <li class="notClickable nav-item">
+                        <a class="nav-link active" href="#miasto" data-toggle="tab" role="tab">
+                            Miasto
+                        </a>
+                    </li>
+                    <li class="notClickable nav-item">
+                        <a class="nav-link" href="#gabinet" data-toggle="tab" role="tab">
+                            Gabinet
+                        </a>
+                    </li>
+                    <li class="notClickable nav-item">
+                        <a class="nav-link" href="#usluga" data-toggle="tab" role="tab">
+                            Usługa
+                        </a>
+                    </li>
+                    <li class="notClickable nav-item">
+                        <a class="nav-link" href="#dentystaData" data-toggle="tab" role="tab">
+                            Dentysta i data
+                        </a>
+                    </li>
+                    <li class="notClickable nav-item">
+                        <a class="nav-link" href="#godzinaWizyty" data-toggle="tab" role="tab">
+                            Dostępne godziny usługi
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="miasto">
+                        <h5 class="info-text">Wybierz miasto</h5>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">explore</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <select asp-for="@Model.City" id="cityPicker" class="selectpicker" data-style="select-with-transition" title="Wybierz miasto">
+                                            <option disabled>Wybierz miasto</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="gabinet">
+                        <h5 class="info-text">Wybierz gabinet dentystyczny</h5>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">account_balance</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <select asp-for="@Model.DentistOfficeId" id="officePicker" class="selectpicker" data-style="select-with-transition" title="Wybierz gabinet">
+                                            <option disabled>Wybierz gabinet</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="usluga">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <section id="servicePicker"></section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="dentystaData">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <section id="dentistPicker"></section>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group d-inline-flex">
+                                        <div class="label-control">Dzień wizyty:</div>
+                                        <input id="datePicker" type="text" class="form-control datetimepicker" value="today();" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="godzinaWizyty">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <section id="timeServicePicker"></section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="mr-auto">
+                    <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Wstecz">
+                </div>
+                <div class="ml-auto">
+                    <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Dalej">
+                    <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" onclick="dc.onReserveServiceClick()" name="finish" value="Zarezerwuj!" style="display: none;">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>

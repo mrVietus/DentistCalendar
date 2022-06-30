@@ -1,0 +1,17 @@
+﻿<p>Welcome Dentist!</p>
+
+<div class="col-lg-6">
+    <p>Zaproszenia</p>
+    @await Component.InvokeAsync("Invitations")
+</div>
+
+@section scripts
+{
+    <script src="~/js/InvitationHandler.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialise Sweet Alert library
+            dc.showSwal();
+        });
+    </script>
+}

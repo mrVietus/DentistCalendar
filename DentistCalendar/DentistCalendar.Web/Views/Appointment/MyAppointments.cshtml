@@ -1,0 +1,40 @@
+﻿@model DentistCalendar.Web.Models.Appointment.MyAppointmentsModel;
+
+<div class="col-lg-6 col-md-12">
+    <div class="card">
+        <div class="col-11 card-header card-header-text card-header-warning">
+            <div class="card-text">
+                <h4 class="card-title">Moje wizyty</h4>
+            </div>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover">
+                <thead class="text-warning">
+                <th>Usługa</th>
+                <th>Cena</th>
+                <th>Data i godzina</th>
+                <th>Dentysta</th>
+                <th>Miejsce</th>
+                <th class="text-right">Anuluj wizytę</th>
+                </thead>
+                <tbody>
+                    @foreach (var appointment in Model.PatientAppoinments)
+                    {
+                        <tr>
+                            <td>@appointment.Service.Name</td>
+                            <td>@appointment.Service.Price zł</td>
+                            <td>@appointment.StartDate.Date</td>
+                            <td>@appointment.Dentist.DoctorTitle @appointment.Dentist.Name @appointment.Dentist.LastName</td>
+                            <td>@appointment.DentistOffice.Name</td>
+                            <td class="td-actions pull-right">
+                                <button type="button" rel="tooltip" class="btn btn-danger" data-id="@appointment.Id" onclick="dc.onRemoveAppointmentClick(this)">
+                                    Anuluj <i class="material-icons">delete_forever</i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿<script src="~/assets/js/locale/pl.js"></script>
+<script src="~/js/wizard.js"></script>
+<p>Welcome Patient!</p>
+
+<div class="col-lg-10" style="padding-bottom:30px; margin-left:10px; margin-right 10px; margin-top: 30px;">
+    @await Component.InvokeAsync("Appointment")
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Initialise the wizard
+        dc.initMaterialWizard();
+        setTimeout(function () {
+            $('.card.card-wizard').addClass('active');
+        }, 200);
+    });
+</script>

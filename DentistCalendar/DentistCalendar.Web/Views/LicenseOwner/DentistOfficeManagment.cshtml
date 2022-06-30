@@ -1,0 +1,174 @@
+﻿@model DentistCalendar.Web.Models.LicenseOwner.DentistOfficeManagmentModel
+<link href="~/css/dentistOfficeManagment.css" rel="stylesheet" />
+
+<div id="dcModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="dcModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@if (Model.DentistOffices == null || !Model.DentistOffices.Any())
+{
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div asp-validation-summary="All" class="col-xl-12 alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div id="dataView" class="container-fluid" style="padding-bottom:100px">
+        <div class="row">
+            <div class="col-xl-6 col-md-8 col-sm-12 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-rose">
+                        <div class="card-icon">
+                            <i class="material-icons">perm_identity</i>
+                        </div>
+                        <h4 class="card-title">
+                            Dodaj placówkę dentystyczną -
+                            <small class="category">Wypełnij wszystkie pola.</small>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="AddDentistOffice" class="form" method="post">
+                            <div class="row">
+                                <div class="col-md-9 col-sm-12" style="padding-top:20px;">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Nazwa</label>
+                                                <input asp-for="NewDentistOffice.Name" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Email</label>
+                                                <input asp-for="NewDentistOffice.Email" type="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Numer telefonu</label>
+                                                <input asp-for="NewDentistOffice.Phone" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Miasto</label>
+                                                <input asp-for="NewDentistOffice.City" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Ulica</label>
+                                                <input asp-for="NewDentistOffice.Street" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Numer domu i lokalu</label>
+                                                <input asp-for="NewDentistOffice.HouseNumber" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Kod pocztowy</label>
+                                                <input asp-for="NewDentistOffice.ZipCode" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">O placówce dentystycznej:</label>
+                                                <textarea asp-for="NewDentistOffice.AboutUs" class="form-control" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-rose pull-right">Dodaj placówkę dentystyczną</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div id="dentistOfficeManagmentTable" class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="tableTittleWithAddButton">
+                    <div class="col-11 card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <h4 class="card-title">Twoje gabinety dentystyczne</h4>
+                    </div>
+                    <div class="col-1 addButton">
+                        <button class="btn btn-success btn-round btn-fab pull-right" onclick="dc.onAddClick()">
+                            <i class="material-icons content-center">add</i> 
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nazwa</th>
+                                    <th>Email</th>
+                                    <th>Adres</th>
+                                    <th>Telefon</th>
+                                    <th class="text-right">Edytuj/Usuń</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var dentistOffice in Model.DentistOffices)
+                                {
+                                    <tr>
+                                        <td>@dentistOffice.Name</td>
+                                        <td>@dentistOffice.Email</td>
+                                        <td>@dentistOffice.Adress</td>
+                                        <td>@dentistOffice.Phone</td>
+                                        <td class="td-actions text-right">
+                                            <button type="button" rel="tooltip" class="btn btn-success" data-id="@dentistOffice.Id" onclick="dc.onEditClick(this)">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-danger" data-id="@dentistOffice.Id" onclick="dc.onRemoveClick(this, '@dentistOffice.Name')">
+                                                <i class="material-icons">delete_forever</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script src="~/js/DentistOfficeManagment.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialise Sweet Alert library
+            dc.showSwal();
+        });
+    </script>
+}

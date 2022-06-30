@@ -1,0 +1,95 @@
+﻿@model DentistCalendar.Web.Models.LicenseOwner.DentistOfficeModel
+
+@if (Model == null)
+{
+    <p>Something went wrong! - pokoloruj na czerwono</p>
+}
+else
+{
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">@Model.Name - edycja</h4>
+    </div>
+
+    <div id="validation">
+        <div id="validationSummary" class="col-xl-12 alert alert-danger alert-dismissible fade show" style="display: none">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <ul id="validation-summary-errors"></ul>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form id="ModalForm" asp-action="EditDentistOffice" class="form" method="post">
+            <div class="row">
+                <div class="col-md-12 col-sm-12" style="padding-top:20px;">
+                    <div class="row modal-row">
+                        <input asp-for="@Model.Id" type="text" class="form-control" hidden>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Nazwa</label>
+                                <input asp-for="@Model.Name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Email</label>
+                                <input asp-for="@Model.Email" type="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Miasto</label>
+                                <input asp-for="@Model.City" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Ulica</label>
+                                <input asp-for="@Model.Street" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Nr domu</label>
+                                <input asp-for="@Model.HouseNumber" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Nr lokalu</label>
+                                <input asp-for="@Model.ApartamentNumber" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Kod pocztowy</label>
+                                <input asp-for="@Model.ZipCode" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Telefon</label>
+                                <input asp-for="@Model.Phone" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">O placówce dentystycznej:</label>
+                                <textarea asp-for="@Model.AboutUs" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-rose pull-right" onclick="SubmitForm(this.parentElement, event)">Edytuj</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+}

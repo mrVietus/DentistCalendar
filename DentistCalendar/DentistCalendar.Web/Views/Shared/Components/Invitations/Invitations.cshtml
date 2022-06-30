@@ -1,0 +1,74 @@
+﻿@model DentistCalendar.Web.Models.Invitation.UserInvitationsModel
+
+@if (Model == null || Model.Invitations == null)
+{
+    <p>Stwórz profil aby zobaczyć zaproszenia.</p>
+}
+else
+{
+    <div class="card">
+        <div class="card-header card-header-text card-header-warning">
+            <div class="card-text">
+                <h4 class="card-title">Zaproszenia</h4>
+            </div>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover">
+                <thead class="text-warning">
+                <th>Nazwa</th>
+                <th class="text-right">Przyjmij/Odrzuć</th>
+                </thead>
+                <tbody>
+                    @if (Model.Invitations.Any())
+                    {
+                        @foreach (var invitation in Model.Invitations)
+                        {
+                            if (invitation.DiseableAccept)
+                            {
+                                <tr>
+                                    <td>@invitation.InvitorName</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-success" data-id="" disabled>
+                                            <i class="material-icons">done</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="" disabled>
+                                            <i class="material-icons">clear</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>@invitation.InvitorName</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" class="btn btn-success" data-id="@invitation.InvitationGuid" onclick="dc.onAcceptClick(this, '@invitation.InvitedAccountType.ToString()')">
+                                            <i class="material-icons">done</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger" data-id="@invitation.InvitationGuid" onclick="dc.onRemoveClick(this, '@invitation.InvitedAccountType.ToString()', '@invitation.InvitorName')">
+                                            <i class="material-icons">clear</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>Aktualnie brak zaproszeń.</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-success" data-id="" disabled>
+                                    <i class="material-icons">done</i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger" data-id="" disabled>
+                                    <i class="material-icons">clear</i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

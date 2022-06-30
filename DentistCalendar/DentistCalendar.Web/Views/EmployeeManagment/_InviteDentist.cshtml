@@ -1,0 +1,35 @@
+﻿@model DentistCalendar.Web.Models.EmployeeManagment.DentistRegistrationModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title" id="myModalLabel">Dodaj dentyste</h4>
+</div>
+
+<div id="validation">
+    <div id="validationSummary" class="col-xl-12 alert alert-danger alert-dismissible fade show" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <ul id="validation-summary-errors"></ul>
+    </div>
+</div>
+
+<div class="modal-body">
+    <form asp-action="InviteDentist" class="form" method="post">
+        <div class="row">
+            <div class="col-md-12 col-sm-12" style="padding-top:20px;">
+                <div class="row modal-row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Email</label>
+                            <input asp-for="@Model.Email" type="email" class="form-control">
+                        </div>
+                    </div>
+                    <input asp-for="@Model.DentistOfficeId" type="text" class="form-control" hidden readonly="readonly">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-rose pull-right" onclick="SubmitForm(this.parentElement, event)">Zaproś</button>
+        <div class="clearfix"></div>
+    </form>
+</div>

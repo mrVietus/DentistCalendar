@@ -1,0 +1,29 @@
+﻿@media (max-width: 991.98px) {
+
+    .employeeTables {
+        display: initial;
+    }
+
+    .addButton {
+        right: 20px;
+        z-index: 999;
+    }
+
+}
+@media (min-width: 992px) {
+
+    .employeeTables {
+        display: flex;
+    }
+
+    .addButton {
+        right: 30px;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+}
+
+.tableTittleWithAddButton {
+    display: inline-flex;
+    width: inherit;
+}
